@@ -1,3 +1,5 @@
+from operator import itemgetter
+import pandas as pd 
 
 # This is the file where you must work.
 # Write code in the functions (and create new functions) so that they work
@@ -37,8 +39,23 @@ def print_table(inventory, order):
     Display the contents of the inventory in an ordered, well-organized table with
     each column right-aligned.
     """
+    order_list = ["count,desc", "count,asc"]
+    sort_dict = inventory
+    if order in order_list: 
+        if order == "count,asc":
+            sort_dict = dict(sorted(inventory.items()))
+        else: 
+            sort_dict = dict(sorted(test_inventory.items(),reverse=True))        
 
-    pass
+    horiz_line = "-----------------"
+    print(horiz_line)
+    print('{:<10s} | {:>4s}'.format(" item name", "count"))
+    print(horiz_line)
+    for key, value in sort_dict.items():
+        print('{:>10s} | {:>4d}'.format(key, value))
+    print(horiz_line) 
+
+
 
 
 def import_inventory(inventory, filename):
@@ -53,6 +70,12 @@ def export_inventory(inventory, filename):
     pass
 
 
-test_inventory = {'pattern' : 10, 'pattern2' : 50,'pattern1' : 50}
-removed_items = ['pattern3','pattern3']
-display_inventory(remove_from_inventory(test_inventory, removed_items))
+test_inventory = {'pattern' : 10, 'pattern2' : 50,'pattern1' : 30}
+"""removed_items = ['pattern3','pattern3']
+display_inventory(remove_from_inventory(test_inventory, removed_items)) """
+
+print_table(test_inventory,"")
+print_table(test_inventory, "count,asc")
+print_table(test_inventory, "count,desc")
+
+
